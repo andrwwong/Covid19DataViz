@@ -1,0 +1,279 @@
+/* Default Styles */
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap");
+
+body {
+  background-color: #121212;
+  height: 100%;
+  width: 100%;
+  min-height: 500px;
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+p {
+  font-family: "Barlow", sans-serif;
+  font-size: 20pt;
+  color: white;
+  padding-left: 5%;
+}
+
+img {
+  height: 27px;
+  width: 20px;
+}
+
+select {
+  font-family: "Barlow", sans-serif;
+  font-size: 12pt;
+  height: 25px;
+  width: 130px;
+  background-color: #282a33;
+  border: none;
+  color: white;
+}
+
+select:focus {
+  outline: none;
+}
+
+#title {
+  padding-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 0;
+  text-align: left;
+  font-size: 8vmin;
+  line-height: 8vim;
+}
+
+#subtitle {
+  margin-top: 7%;
+}
+
+.row-then-column {
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+}
+
+/* Card */
+.title-container,
+.graph-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #282a33;
+  height: 60vh;
+  width: 50%;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10vh;
+}
+
+.title-container {
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 32.5%;
+  padding-right: 5%;
+}
+
+.first > .graph-container {
+  width: 67.5%;
+}
+
+#heatmap-cases canvas.marks,
+#heatmap-deaths canvas.marks {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Make graph container taller */
+.tall {
+  height: 115vh;
+}
+
+/* Make graph container wider */
+.wide {
+  width: calc(71.6% + 5vh) !important;
+}
+
+.margin-right {
+  margin-right: 2.5vh;
+}
+
+.margin-left {
+  margin-left: 2.5vh;
+}
+
+.graph {
+  height: 85%;
+  width: 100%;
+  padding-left: 2.5% !important;
+  padding-right: 5% !important;
+  padding-bottom: 1% !important;
+}
+
+.graph.hide {
+  height: 45% !important;
+}
+
+.loading {
+  vertical-align: center;
+  text-align: center;
+  font-size: 5em;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  padding: 4em 5% 0 5%;
+}
+
+.icon-text {
+  padding-bottom: 10px;
+  padding-left: 10px;
+  font-size: 9pt;
+  font-family: "Helvetica Neue";
+}
+
+#patients-iso-graph {
+  margin-top: 2em !important;
+  padding-right: 0%;
+}
+
+#patients-iso-graph canvas.marks {
+  height: 90% !important;
+  width: 95% !important;
+  padding-left: 5% !important;
+}
+
+#patients-iso-graph form {
+  width: 150% !important;
+}
+
+#patients-iso-graph label {
+  display: flex;
+  flex-direction: column;
+}
+
+#patients-iso-graph label span,
+#patients-iso-graph label input {
+  display: none;
+}
+
+#patients-iso-graph .chart-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#patients-iso-graph span.vega-bind-name {
+  font-family: "Barlow", sans-serif;
+  font-size: 20pt;
+  color: white;
+  display: initial !important;
+  padding-right: 5% !important;
+  margin-bottom: 5% !important;
+  width: 80%;
+}
+
+#gender-donut-chart {
+  width: 90% !important;
+}
+
+/* For the donut chart */
+.modebar-container {
+  display: none;
+}
+
+#testing-area-graph {
+  padding-left: 2.5% !important;
+  padding-right: 5% !important;
+}
+
+#ethnicity-side-by-side-graph {
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  padding-left: 5% !important;
+  padding-bottom: 2% !important;
+}
+
+#ethnicity-side-by-side-graph canvas.marks {
+  height: 95% !important;
+  overflow-x: scroll !important;
+}
+
+#ethnicity-side-by-side-graph label span {
+  color: white;
+  font-family: "Helvetica Neue";
+  font-size: 12pt;
+}
+
+/* Hide the Vega tooltip that lets someone view the source code */
+.graph-container details {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Remove padding from Vega graph */
+.vega-embed.has-actions {
+  padding-right: 0 !important;
+}
+
+/*
+@media screen and (max-width: 1499px) {
+  .row-then-column {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+  }
+
+  .margin-left,
+  .margin-right {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .title-container,
+  .graph-container {
+    width: calc(100% - 4%);
+  }
+
+  .tall {
+    height: 125vh;
+  }
+}
+*/
+
+@media screen and (min-width: 2560px) {
+  #title {
+    font-size: 10vmin;
+    line-height: 10vmin;
+  }
+
+  #ethnicity-side-by-side-graph canvas.marks {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  #ethnicity-side-by-side-graph canvas.marks {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    height: 500px;
+    width: 750px;
+  }
+
+  .graph-container,
+  .graph {
+    width: 500px;
+  }
+}

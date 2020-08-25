@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.8.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+</head>
+
+<body id="body">
+  <div style="height: 15vh; width: 100%;"></div>
+  <div class="first row-then-column">
+    <div class="title-container margin-right">
+      <p id="title">Covid-19 Trends in California</p>
+      <p id="subtitle">An interactive infographic to visualize the spread of the deadly virus</p>
+    </div>
+
+    <div class="graph-container margin-left">
+      <p>Where are the Most Cases in CA?</p>
+      <div class="graph" id="heatmap-cases"></div>
+    </div>
+  </div>
+
+  <div class="row-then-column">
+    <div class="graph-container margin-right" style="flex-direction: row-reverse;">
+      <!-- Legend -->
+      <div class="legend">
+        <p style="font-size: 10pt; font-weight: bold; font-family: 'Helvetica Neue';">Patient Type</p>
+        <div style="display: flex; flex-direction: row;">
+          <img src="assests/hospital-icon.png" alt="hospital-icon-blue">
+          <div style="display: flex; flex-direction: column; ">
+            <p class="icon-text" style="padding-bottom: 0; margin: 0; margin-top: -5%;"> Hospitalized </p>
+            <p class="icon-text" style="margin: 0;">Patients</p>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: row;">
+          <img src="assests/icu-icon.png" alt="icu-icon-pink">
+          <p class="icon-text" style="margin-top: 0;">ICU Patients</p>
+        </div>
+      </div>
+      <div class="graph" id="patients-iso-graph"></div>
+    </div>
+
+    <div class="graph-container margin-left">
+      <p>Where are the Most Deaths in CA?</p>
+      <div class="graph" id="heatmap-deaths"></div>
+    </div>
+  </div>
+
+  <div class="graph-container tall wide" style="flex-direction: column;">
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <p>What to Expect in the Future</p>
+      <div style="width: 160px; margin-top: 2%;">
+        <select>
+          <option value="linear">Linear</option>
+          <option value="exponential">Exponential</option>
+          <option value="logarithmic">Logarithmic</option>
+        </select>
+      </div>
+    </div>
+    <div class="graph hide linear" id="norcal-linear"></div>
+    <div class="graph hide exponential" id="norcal-exponential"></div>
+    <div class="graph hide logarithmic" id="norcal-logarithmic"></div>
+
+    <div style="height: 3vh; width: 100%;"></div>
+
+    <div class="graph hide linear" id="socal-linear"></div>
+    <div class="graph hide exponential" id="socal-exponential"></div>
+    <div class="graph hide logarithmic" id="socal-logarithmic"></div>
+  </div>
+
+  <div class="graph-container wide">
+    <p>N-95 Masks are Still in High Demand</p>
+    <div class="graph" id="equipment-circle-graph1"></div>
+  </div>
+
+  <div class="graph-container wide">
+    <p>What Other Supplies are Needed to Combat Covid-19?</p>
+    <div class="graph" id="equipment-circle-graph2"></div>
+  </div>
+
+  <div class="row-then-column">
+    <div class="graph-container margin-right">
+      <p>How Many People are Tested Every Week?</p>
+      <div class="graph" id="testing-area-graph"></div>
+    </div>
+
+    <div class="graph-container margin-left">
+      <p>Gender Affects Likelihood of Death</p>
+      <div class="graph" id="gender-donut-chart"></div>
+    </div>
+  </div>
+
+  <div class="graph-container wide">
+    <p>Latinos in California Have Been Hardest Impacted</p>
+    <div id="ethnicity-side-by-side-graph"></div>
+  </div>
+
+  <script type="text/javascript">
+    const graphs = {
+      'patients-iso-graph': 'IsoGraphPatientsPart1.json',
+      'ethnicity-side-by-side-graph': 'SideBarChartEthnicity.json',
+      'equipment-circle-graph1': 'EquipmentCircleGraph.json',
+      'equipment-circle-graph2': 'EquipmentCircleGraph2.json',
+      'testing-area-graph': 'TestingAreaGraph.json',
+      'norcal-linear': 'NorCalLinear.json',
+      'socal-linear': 'SoCalLinear.json'
+    };
+
+
+    Object.entries(graphs).forEach(([name, url]) => {
+      vegaEmbed('#' + name, 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/' + url).catch(console.error);
+    });
+
+    vegaEmbed('#heatmap-cases', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_cases.json').catch(console.error);
+    vegaEmbed('#heatmap-deaths', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_deaths.json').catch(console.error);
+
+    $(document).ready(function () {
+      $.getJSON('https://raw.githubusercontent.com/ekim197/Altair-Project/master/PieChart.json', function (data) {
+        let config = { responsive: true };
+        Plotly.react('gender-donut-chart', data.data, data.layout, config);
+      });
+
+      let expLoaded = false;
+      let logLoaded = false;
+      $('.exponential').hide();
+      $('.logarithmic').hide();
+
+      $('select').change(function () {
+        let selectedVal = $(this).val();
+
+        $('.hide').hide();
+        $('.' + selectedVal).show();
+
+        if (!expLoaded && selectedVal === 'exponential') {
+          vegaEmbed('#norcal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalExp.json').catch(console.error);
+          vegaEmbed('#socal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalExp.json').catch(console.error);
+          expLoaded = true;
+        } else if (!logLoaded && selectedVal === 'logarithmic') {
+          vegaEmbed('#norcal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLog.json').catch(console.error);
+          vegaEmbed('#socal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLog.json').catch(console.error);
+          logLoaded = true;
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
