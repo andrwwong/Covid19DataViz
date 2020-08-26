@@ -1,5 +1,5 @@
 $(window).on('load', function () {
-  appendLoadingDiv();
+  // appendLoadingDiv();
 });
 
 function appendLoadingDiv() {
