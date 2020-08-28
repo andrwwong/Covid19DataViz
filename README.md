@@ -5,5 +5,5 @@ Feel free to check it out&nbsp;:grinning: &nbsp; Remember to socially distance a
 
 For reference:
 * Data was pulled from The New York Times and the state of California, and processed with Python.   
-* Trends were predicted using scikit-learn. 
+* Trends were trained and predicted using scikit-learn. 
 * Interactive graphs were produced using Altair. 
