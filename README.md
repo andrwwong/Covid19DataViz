@@ -4,6 +4,6 @@ An interactive COVID-19 data visualization [website](https://andrwwong.github.io
 Feel free to check it out&nbsp;:grinning: &nbsp; Remember to socially distance and stay safe!
 
 For reference:
-* Data was pulled from The New York Times and the state of California, and processed with Python.   
+* Data was pulled from The New York Times and the state of California, and processed with Python pandas.   
 * Trends were predicted using scikit-learn.
 * Interactive graphs were produced using Altair. 
