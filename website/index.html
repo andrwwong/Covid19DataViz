@@ -112,16 +112,11 @@
       'socal-linear': 'SoCalLinear.json'
     };
 
-
-    $(function () {
-      $("#heatmap-cases").load("heatmap_deaths.html");
-    });
-
     Object.entries(graphs).forEach(([name, url]) => {
       vegaEmbed('#' + name, 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/' + url).catch(console.error);
     });
 
-    // vegaEmbed('#heatmap-cases', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_cases.json').catch(console.error);
+    vegaEmbed('#heatmap-cases', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_cases.json').catch(console.error);
     vegaEmbed('#heatmap-deaths', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_deaths.json').catch(console.error);
 
     $(document).ready(function () {
