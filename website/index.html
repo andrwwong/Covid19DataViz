@@ -133,9 +133,9 @@
       'ethnicity-side-by-side-graph': 'SideBarChartEthnicity',
       'equipment-circle-graph1': 'EquipmentCircleGraph',
       'equipment-circle-graph2': 'EquipmentCircleGraph2',
-      'testing-area-graph': 'TestingAreaGraph',
+      'testing-area-graph': 'TestingAreaGraph'/*,
       'norcal-linear': 'NorCalLinear',
-      'socal-linear': 'SoCalLinear'
+      'socal-linear': 'SoCalLinear'*/
     };
 
     Object.entries(graphs).forEach(([name, url]) => {
@@ -144,8 +144,11 @@
 
     vegaEmbed('#heatmap-cases', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_cases.json').catch(console.error);
     vegaEmbed('#heatmap-deaths', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_deaths.json').catch(console.error);
-    vegaEmbed('#norcal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLinear' + langURL).catch(console.error);
-    vegaEmbed('#socal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLinear' + langURL).catch(console.error);
+    vegaEmbed('#norcal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLinear.json').catch(console.error);
+    vegaEmbed('#socal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLinear.json').catch(console.error);
+
+    $('[lang="en"]').show();
+    $('[lang="zh"]').hide();
 
     $(document).ready(function () {
       $.getJSON('https://raw.githubusercontent.com/ekim197/Altair-Project/master/PieChart.json', function (data) {
@@ -156,7 +159,7 @@
       let chinese = false;
       let langURL = '.json'; // Switches between English and Chinese graphs
       let selectedGraphVal = ''; // Whether exp or log regression graph should be displayed
-      let linLoaded = true; // If exp graph from the dropdown is chosen, do not load it again if exp is already displayed
+      let linLoaded = true; // If lin graph from the dropdown is chosen, do not load it again if lin is already displayed
       let expLoaded = false; // If exp graph from the dropdown is chosen, do not load it again if exp is already displayed
       let logLoaded = false; // If log graph from the dropdown is chosen, do not load it again if log is already displayed
       $('.exponential').hide();
@@ -187,8 +190,6 @@
         }
       });
 
-      $('[lang="zh"]').hide();
-
       $('#select-lang').change(function () {
         $('[lang="en"]').toggle();
         $('[lang="zh"]').toggle();
@@ -199,7 +200,7 @@
           vegaEmbed('#' + name, 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/' + url + langURL).catch(console.error);
         });
 
-        if (selectedGraphval === 'linear') {
+        if (selectedGraphVal === 'linear') {
           vegaEmbed('#norcal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLinear' + langURL).catch(console.error);
           vegaEmbed('#socal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLinear' + langURL).catch(console.error);
         } else if (selectedGraphVal === 'exponential') {
