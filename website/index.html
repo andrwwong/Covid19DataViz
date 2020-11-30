@@ -12,15 +12,24 @@
 </head>
 
 <body id="body">
-  <div style="height: 15vh; width: 100%;"></div>
+  <div style="height: 12.5vh; width: 100%;"></div>
+  <div id="language">
+    <select id="select-lang">
+      <option value="en">English</option>
+      <option value="zh">中文</option>
+    </select>
+  </div>
   <div class="first row-then-column">
     <div class="title-container margin-right">
-      <p id="title">Covid-19 Trends in California</p>
-      <p id="subtitle">An interactive infographic to visualize the spread of the deadly virus</p>
+      <p id="title" lang="en">Covid-19 Trends in California</p>
+      <p id="title" lang="zh">Covid-19加州趨勢</p>
+      <p id="subtitle" lang="en">An interactive infographic to visualize the spread of the deadly virus</p>
+      <p id="subtitle" lang="zh">交互式圖表，可視化致命病毒的傳播</p>
     </div>
 
     <div class="graph-container margin-left">
-      <p>Where are the Most Cases in CA?</p>
+      <p lang="en">Where are the Most Cases in CA?</p>
+      <p lang="zh">加州大多數情況在哪裡?</p>
       <div class="graph" id="heatmap-cases"></div>
     </div>
   </div>
@@ -29,37 +38,46 @@
     <div class="graph-container margin-right" style="flex-direction: row-reverse;">
       <!-- Legend -->
       <div class="legend">
-        <p style="font-size: 10pt; font-weight: bold; font-family: 'Helvetica Neue';">Patient Type</p>
+        <p style="font-size: 10pt; font-weight: bold; font-family: 'Helvetica Neue';" lang="en">Patient Type</p>
+        <p style="font-size: 10pt; font-weight: bold; font-family: 'Helvetica Neue';" lang="zh">Patient Type</p>
         <div style="display: flex; flex-direction: row;">
           <img src="assets/hospital-icon.png" alt="hospital-icon-blue">
           <div style="display: flex; flex-direction: column; ">
-            <p class="icon-text" style="padding-bottom: 0; margin: 0; margin-top: -5%;"> Hospitalized </p>
-            <p class="icon-text" style="margin: 0;">Patients</p>
+            <p class="icon-text" style="padding-bottom: 0; margin: 0; margin-top: -5%;" lang="en"> Hospitalized </p>
+            <p class="icon-text" style="padding-bottom: 0; margin: 0; margin-top: -5%;" lang="zh"> Hospitalized </p>
+            <p class="icon-text" style="margin: 0;" lang="en">Patients</p>
+            <p class="icon-text" style="margin: 0;" lang="zh">Patients</p>
           </div>
         </div>
 
         <div style="display: flex; flex-direction: row;">
           <img src="assets/icu-icon.png" alt="icu-icon-pink">
-          <p class="icon-text" style="margin-top: 0;">ICU Patients</p>
+          <p class="icon-text" style="margin-top: 0;" lang="en">ICU Patients</p>
+          <p class="icon-text" style="margin-top: 0;" lang="zh">ICU Patients</p>
         </div>
       </div>
       <div class="graph" id="patients-iso-graph"></div>
     </div>
 
     <div class="graph-container margin-left">
-      <p>Where are the Most Deaths in CA?</p>
+      <p lang="en">Where are the Most Deaths in CA?</p>
+      <p lang="zh">加利福尼亞的死亡人數最多?</p>
       <div class="graph" id="heatmap-deaths"></div>
     </div>
   </div>
 
   <div class="graph-container tall wide" style="flex-direction: column;">
     <div style="display: flex; flex-direction: row; justify-content: space-between;">
-      <p>What to Expect in the Future</p>
+      <p lang="en">What to Expect in the Future</p>
+      <p lang="zh">未來會發生什麼</p>
       <div style="width: 160px; margin-top: 2%;">
-        <select>
-          <option value="linear">Linear</option>
-          <option value="exponential">Exponential</option>
-          <option value="logarithmic">Logarithmic</option>
+        <select id="select-graph">
+          <option value="linear" lang="en">Linear</option>
+          <option value="linear" lang="zh">線性</option>
+          <option value="exponential" lang="en">Exponential</option>
+          <option value="exponential" lang="zh">指數</option>
+          <option value="logarithmic" lang="en">Logarithmic</option>
+          <option value="logarithmic" lang="zh">对数</option>
         </select>
       </div>
     </div>
@@ -75,29 +93,34 @@
   </div>
 
   <div class="graph-container wide">
-    <p>N-95 Masks are Still in High Demand</p>
+    <p lang="en">N-95 Masks are Still in High Demand</p>
+    <p lang="zh">N-95口罩的需求仍然很高</p>
     <div class="graph" id="equipment-circle-graph1"></div>
   </div>
 
   <div class="graph-container wide">
-    <p>What Other Supplies are Needed to Combat Covid-19?</p>
+    <p lang="en">What Other Supplies are Needed to Combat Covid-19?</p>
+    <p lang="zh">还需要什么其他物品来对抗Covid-19?</p>
     <div class="graph" id="equipment-circle-graph2"></div>
   </div>
 
   <div class="row-then-column">
     <div class="graph-container margin-right">
-      <p>How Many People are Tested Every Week?</p>
+      <p lang="en">How Many People are Tested Every Week?</p>
+      <p lang="zh">每周有多少人接受测试?</p>
       <div class="graph" id="testing-area-graph"></div>
     </div>
 
     <div class="graph-container margin-left">
-      <p>Gender Affects Likelihood of Death</p>
+      <p lang="en">Gender Affects Likelihood of Death</p>
+      <p lang="zh">性别影响死亡的可能性</p>
       <div class="graph" id="gender-donut-chart"></div>
     </div>
   </div>
 
   <div class="graph-container wide">
-    <p>Latinos in California Have Been Hardest Impacted</p>
+    <p lang="en">Latinos in California Have Been Hardest Impacted</p>
+    <p lang="zh">加利福尼亚的拉丁美洲人受到的影响最大</p>
     <div id="ethnicity-side-by-side-graph"></div>
   </div>
 
@@ -130,7 +153,7 @@
       $('.exponential').hide();
       $('.logarithmic').hide();
 
-      $('select').change(function () {
+      $('#select-graph').change(function () {
         let selectedVal = $(this).val();
 
         $('.hide').hide();
@@ -145,6 +168,13 @@
           vegaEmbed('#socal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLog.json').catch(console.error);
           logLoaded = true;
         }
+      });
+
+      $('[lang="zh"]').hide();
+
+      $('#select-lang').change(function () {
+        $('[lang="en"]').toggle();
+        $('[lang="zh"]').toggle();
       });
     });
   </script>

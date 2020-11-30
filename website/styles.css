@@ -38,6 +38,22 @@ select:focus {
   outline: none;
 }
 
+#language {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 75%;
+  margin-bottom: 2.5vh;
+  border-radius: 10px;
+  border-color: white;
+  border-width: 1em;
+}
+
+#language > select {
+  border-radius: 5px;
+  border: solid white;
+  height: 2.25em;
+}
+
 #title {
   padding-left: 5%;
   margin-top: 5%;
