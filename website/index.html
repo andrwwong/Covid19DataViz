@@ -22,9 +22,11 @@
   <div class="first row-then-column">
     <div class="title-container margin-right">
       <p id="title" lang="en">Covid-19 Trends in California</p>
-      <p id="title" lang="zh">Covid-19加州趨勢</p>
+      <p id="title" lang="zh" style="font-size: 10vmin !important; line-height: 10vim !important;">Covid-19加州趨勢</p>
       <p id="subtitle" lang="en">An interactive infographic to visualize the spread of the deadly virus</p>
-      <p id="subtitle" lang="zh">交互式圖表，可視化致命病毒的傳播</p>
+      <p id="subtitle" lang="zh"
+        style="font-size: 5vmin !important; line-height: 7vmin !important; padding-top: 5vmin;">交互式圖表，可視化致命病毒的傳播
+      </p>
     </div>
 
     <div class="graph-container margin-left">
@@ -126,17 +128,17 @@
 
   <script type="text/javascript">
     const graphs = {
-      'patients-iso-graph': 'IsoGraphPatientsPart1.json',
-      'ethnicity-side-by-side-graph': 'SideBarChartEthnicity.json',
-      'equipment-circle-graph1': 'EquipmentCircleGraph.json',
-      'equipment-circle-graph2': 'EquipmentCircleGraph2.json',
-      'testing-area-graph': 'TestingAreaGraph.json',
-      'norcal-linear': 'NorCalLinear.json',
-      'socal-linear': 'SoCalLinear.json'
+      'patients-iso-graph': 'IsoGraphPatientsPart1',
+      'ethnicity-side-by-side-graph': 'SideBarChartEthnicity',
+      'equipment-circle-graph1': 'EquipmentCircleGraph',
+      'equipment-circle-graph2': 'EquipmentCircleGraph2',
+      'testing-area-graph': 'TestingAreaGraph',
+      'norcal-linear': 'NorCalLinear',
+      'socal-linear': 'SoCalLinear'
     };
 
     Object.entries(graphs).forEach(([name, url]) => {
-      vegaEmbed('#' + name, 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/' + url).catch(console.error);
+      vegaEmbed('#' + name, 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/' + url + '.json').catch(console.error);
     });
 
     vegaEmbed('#heatmap-cases', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_cases.json').catch(console.error);
@@ -148,24 +150,25 @@
         Plotly.react('gender-donut-chart', data.data, data.layout, config);
       });
 
-      let expLoaded = false;
-      let logLoaded = false;
+      let chinese = false;
+      let langURL = '.json'; // Switches between English and Chinese graphs
+      let selectedGraphVal = ''; // Whether exp or log regression graph should be displayed
+      let expLoaded = false; // If exp graph from the dropdown is chosen, do not load it again if exp is already displayed
+      let logLoaded = false; // If log graph from the dropdown is chosen, do not load it again if log is already displayed
       $('.exponential').hide();
       $('.logarithmic').hide();
 
       $('#select-graph').change(function () {
-        let selectedVal = $(this).val();
-
+        selectedGraphVal = $(this).val();
         $('.hide').hide();
-        $('.' + selectedVal).show();
-
-        if (!expLoaded && selectedVal === 'exponential') {
-          vegaEmbed('#norcal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalExp.json').catch(console.error);
-          vegaEmbed('#socal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalExp.json').catch(console.error);
+        $('.' + selectedGraphVal).show();
+        if (!expLoaded && selectedGraphVal === 'exponential') {
+          vegaEmbed('#norcal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalExp' + langURL).catch(console.error);
+          vegaEmbed('#socal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalExp' + langURL).catch(console.error);
           expLoaded = true;
-        } else if (!logLoaded && selectedVal === 'logarithmic') {
-          vegaEmbed('#norcal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLog.json').catch(console.error);
-          vegaEmbed('#socal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLog.json').catch(console.error);
+        } else if (!logLoaded && selectedGraphVal === 'logarithmic') {
+          vegaEmbed('#norcal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLog' + langURL).catch(console.error);
+          vegaEmbed('#socal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLog' + langURL).catch(console.error);
           logLoaded = true;
         }
       });
@@ -175,6 +178,21 @@
       $('#select-lang').change(function () {
         $('[lang="en"]').toggle();
         $('[lang="zh"]').toggle();
+        chinese = !chinese;
+        langURL = chinese ? '-Chinese.json' : '.json';
+
+        Object.entries(graphs).forEach(([name, url]) => {
+          vegaEmbed('#' + name, 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/' + url + langURL).catch(console.error);
+        });
+
+        if (selectedGraphVal === 'exponential') {
+          vegaEmbed('#norcal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalExp' + langURL).catch(console.error);
+          vegaEmbed('#socal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalExp' + langURL).catch(console.error);
+        } else if (selectedGraphVal === 'logarithmic') {
+          vegaEmbed('#norcal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLog' + langURL).catch(console.error);
+          vegaEmbed('#socal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLog' + langURL).catch(console.error);
+        }
+
       });
     });
   </script>
