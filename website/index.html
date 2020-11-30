@@ -144,6 +144,8 @@
 
     vegaEmbed('#heatmap-cases', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_cases.json').catch(console.error);
     vegaEmbed('#heatmap-deaths', 'https://raw.githubusercontent.com/andrwwong/Covid19DataViz/master/graph-data/heatmap/heatmap_deaths.json').catch(console.error);
+    vegaEmbed('#norcal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLinear' + langURL).catch(console.error);
+    vegaEmbed('#socal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLinear' + langURL).catch(console.error);
 
     $(document).ready(function () {
       $.getJSON('https://raw.githubusercontent.com/ekim197/Altair-Project/master/PieChart.json', function (data) {
@@ -154,6 +156,7 @@
       let chinese = false;
       let langURL = '.json'; // Switches between English and Chinese graphs
       let selectedGraphVal = ''; // Whether exp or log regression graph should be displayed
+      let linLoaded = true; // If exp graph from the dropdown is chosen, do not load it again if exp is already displayed
       let expLoaded = false; // If exp graph from the dropdown is chosen, do not load it again if exp is already displayed
       let logLoaded = false; // If log graph from the dropdown is chosen, do not load it again if log is already displayed
       $('.exponential').hide();
@@ -163,13 +166,23 @@
         selectedGraphVal = $(this).val();
         $('.hide').hide();
         $('.' + selectedGraphVal).show();
-        if (!expLoaded && selectedGraphVal === 'exponential') {
+        if (!linLoaded && selectedGraphVal === 'linear') {
+          vegaEmbed('#norcal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLinear' + langURL).catch(console.error);
+          vegaEmbed('#socal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLinear' + langURL).catch(console.error);
+          linLoaded = true;
+          expLoaded = false;
+          logLoaded = false;
+        } else if (!expLoaded && selectedGraphVal === 'exponential') {
           vegaEmbed('#norcal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalExp' + langURL).catch(console.error);
           vegaEmbed('#socal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalExp' + langURL).catch(console.error);
+          linLoaded = false;
           expLoaded = true;
+          logLoaded = false;
         } else if (!logLoaded && selectedGraphVal === 'logarithmic') {
           vegaEmbed('#norcal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLog' + langURL).catch(console.error);
           vegaEmbed('#socal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLog' + langURL).catch(console.error);
+          linLoaded = false;
+          expLoaded = false;
           logLoaded = true;
         }
       });
@@ -186,14 +199,16 @@
           vegaEmbed('#' + name, 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/' + url + langURL).catch(console.error);
         });
 
-        if (selectedGraphVal === 'exponential') {
+        if (selectedGraphval === 'linear') {
+          vegaEmbed('#norcal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLinear' + langURL).catch(console.error);
+          vegaEmbed('#socal-linear', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLinear' + langURL).catch(console.error);
+        } else if (selectedGraphVal === 'exponential') {
           vegaEmbed('#norcal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalExp' + langURL).catch(console.error);
           vegaEmbed('#socal-exponential', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalExp' + langURL).catch(console.error);
         } else if (selectedGraphVal === 'logarithmic') {
           vegaEmbed('#norcal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/NorCalLog' + langURL).catch(console.error);
           vegaEmbed('#socal-logarithmic', 'https://raw.githubusercontent.com/ekim197/Altair-Project/master/SoCalLog' + langURL).catch(console.error);
         }
-
       });
     });
   </script>
